@@ -18,8 +18,9 @@ const useAddCourseState = () => {
         typeId: onChangeText(setTypeId),
         courseFile: onChangeFile(setCourseFile),
         level: onChangeText(setLevel),
-        duuration: onChangeText(setDuration)
+        duration: onChangeText(setDuration)
     }
+    
     React.useEffect(() => {
         if (title && description && typeId && courseFile && level && duration) {
             setDisable(false)

@@ -12,24 +12,29 @@ const FORM_LIST = [
     { id: "typeId", label: "Type Id", type: "text", placeholder: "Enter course type id" },
     { id: "courseFile", label: "Course Material", type: "file", placeholder: "Choose course material" },
     { id: "level", label: "Level", type: "text", placeholder: "Enter course level" },
-    { id: "duration", label: "Duration", type: "text", placeholder: "EEnter Course duration" }
+    { id: "duration", label: "Duration", type: "text", placeholder: "Enter Course duration" }
 ]
+
+
+
 
 const AddCourse = ({onNavigate, setCourses}) => {
     const { getter, setter } = useAddCourseState();
     
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
         setCourses((prevState) => {
-            const newCourses = {...prevState};
-            const payload = {
-                ...getter,
-                courseId: Math.random().toString()
-            }
-            newCourses?.data?.push(payload);
+            const newCourse = { ...getter };
+            console.log(newCourse);
+            const newCourses = [...prevState];
+            // const payload = {
+            //     ...getter,
+            // }
+            newCourses.push(newCourse);
             return newCourses;
         })
 
-        onNavigate("/");
+        onNavigate("/"); 
     }
 
     return(
