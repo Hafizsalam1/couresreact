@@ -2,7 +2,7 @@ import React from "react";
 import FormInput from "../../components/FormInput/FormInput";
 import {Form, Button, ButtonGroup} from "react-bootstrap"
 import {StyledContainer, StyledTitle} from "./styles";
-import useAddCourseState from "./useAddCourseState";
+import useAddTypeState from "./useAddTypeState";
 import { useLocation, useNavigate } from "react-router-dom"
 import constants from "../../constants";
 
@@ -11,44 +11,41 @@ import constants from "../../constants";
 
 
 const FORM_LIST = [
-    { id: "title", label: "Title", type: "text", placeholder: "Enter course title" },
-    { id: "description", label: "Description", type: "textarea", placeholder: "Enter course description" },
-    { id: "typeId", label: "Type Id", type: "text", placeholder: "Enter course type id" },
-    { id: "courseFile", label: "Course Material", type: "file", placeholder: "Choose course material" },
-    { id: "level", label: "Level", type: "text", placeholder: "Enter course level" },
-    { id: "duration", label: "Duration", type: "text", placeholder: "Enter Course duration" }
+    { id: "typeId", label: "Type Id", type: "text", placeholder: "Enter typeId" },
+    { id: "typeName", label: "TypeName", type: "text", placeholder: "Enter typeName" },
+    { id: "level", label: "Level", type: "text", placeholder: "Enter type level" },
+    { id: "duration", label: "Duration", type: "text", placeholder: "Enter type duration" }
 ]
 
 
 
 
-const AddCourse = ({onNavigate, setCourses}) => {
+const AddType = ({onNavigate, setTypes}) => {
     const navigate = useNavigate()
 
 
     
-    const { getter, setter } = useAddCourseState();
+    const { getter, setter } = useAddTypeState();
     
     const handleSubmit = (e) => {
         e.preventDefault();
-        setCourses((prevState) => {
-            const newCourse = { ...getter };
-            console.log(newCourse);
-            const newCourses = [...prevState];
+        setTypes((prevState) => {
+            const newType = { ...getter };
+            const newTypes = [...prevState];
             // const payload = {
             //     ...getter,
             // }
-            newCourses.push(newCourse);
-            return newCourses;
+            newTypes.push(newType);
+            return newTypes;
         })
 
-        navigate((constants.ROUTES.COURSE_LIST)); 
+        navigate((constants.ROUTES.TYPE_LIST)); 
     }
 
     return(
 
         <StyledContainer>
-        <StyledTitle>Add Course Page</StyledTitle>
+        <StyledTitle>Add type Page</StyledTitle>
         <Form>
             { FORM_LIST.map(item => (
                 <FormInput
@@ -77,4 +74,4 @@ const AddCourse = ({onNavigate, setCourses}) => {
 
 
 }
-export default AddCourse
+export default AddType

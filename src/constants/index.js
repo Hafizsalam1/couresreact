@@ -4,7 +4,8 @@ export default{
         ADD_COURSE:"/add-course",
         EDIT_COURSE:"/edit-course",
         TYPE_LIST:"/type-list",
-        LOGIN:"login"
+        LOGIN:"/login",
+        ADD_TYPE:"/add-type"
         }
 
 }

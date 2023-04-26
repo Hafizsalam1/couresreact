@@ -2,16 +2,11 @@ import React from "react";
 import FormInput from "../../components/FormInput/FormInput";
 import {Form, Button, ButtonGroup} from "react-bootstrap"
 import {StyledContainer, StyledTitle} from "./styles";
-import useAddCourseState from "./useAddCourseState";
 import { useLocation, useNavigate } from "react-router-dom"
 import constants from "../../constants";
-
-
-
-
+import useEditCourseState from "./useEditState";
 
 const FORM_LIST = [
-    { id: "title", label: "Title", type: "text", placeholder: "Enter course title" },
     { id: "description", label: "Description", type: "textarea", placeholder: "Enter course description" },
     { id: "typeId", label: "Type Id", type: "text", placeholder: "Enter course type id" },
     { id: "courseFile", label: "Course Material", type: "file", placeholder: "Choose course material" },
@@ -20,20 +15,18 @@ const FORM_LIST = [
 ]
 
 
-
-
-const AddCourse = ({onNavigate, setCourses}) => {
+const Edit = ({title, setCourses}) =>{
     const navigate = useNavigate()
 
 
     
-    const { getter, setter } = useAddCourseState();
+    const { getter, setter } = useEditCourseState();
     
     const handleSubmit = (e) => {
         e.preventDefault();
         setCourses((prevState) => {
             const newCourse = { ...getter };
-            console.log(newCourse);
+            newCourse.title = {title}
             const newCourses = [...prevState];
             // const payload = {
             //     ...getter,
@@ -48,7 +41,7 @@ const AddCourse = ({onNavigate, setCourses}) => {
     return(
 
         <StyledContainer>
-        <StyledTitle>Add Course Page</StyledTitle>
+        <StyledTitle>Edit type Page</StyledTitle>
         <Form>
             { FORM_LIST.map(item => (
                 <FormInput
@@ -64,7 +57,7 @@ const AddCourse = ({onNavigate, setCourses}) => {
                 <Button variant="success" onClick={handleSubmit} disabled={getter.isDisable}>
                     Submit
                 </Button>
-                <Button variant="secondary" onClick={() => onNavigate("/")}>
+                <Button variant="secondary">
                     Cancel
                 </Button>
             </ButtonGroup>
@@ -72,9 +65,9 @@ const AddCourse = ({onNavigate, setCourses}) => {
     </StyledContainer>
     )
 
+    
 
-
-
+    
 
 }
-export default AddCourse
+export default Edit

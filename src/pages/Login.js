@@ -1,16 +1,20 @@
 import React from "react";
+import { useLocation, useNavigate } from "react-router-dom"
+import AddCourse from "./AddCourse";
+import constants from "../constants";
+
 
 const Login = () => {
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
+    const navigate = useNavigate()
+
 
     const handleSubmit = (e) => {
 
         e.preventDefault();
-        if (email == "email@gmail.com" && password == "123456"){
-          alert(       
-            `\nEmail: ${email}`)
-        }
+        if (email === "email@gmail.com" && password === "123456"){
+           navigate(constants.ROUTES.COURSE_LIST)}
         else {
           alert(       
             `email/password salah`)
