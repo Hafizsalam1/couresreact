@@ -9,18 +9,9 @@ import useMutation from "../../hooks/useMutation";
 import useAddCourseState from "../AddCourse/useAddCourseState";
 import { editCourse } from "../../services/courseService";
 
-const FORM_LIST = [
-    { id: "title", label: "Title", type: "text", placeholder: "Enter course title" },
-    { id: "description", label: "Description", type: "textarea", placeholder: "Enter course description" },
-    { id: "typeId", label: "Type Id", type: "text", placeholder: "Enter course type id" },
-    { id: "courseFile", label: "Course Material", type: "file", placeholder: "Choose course material" },
-    { id: "level", label: "Level", type: "text", placeholder: "Enter course level" },
-    { id: "duration", label: "Duration", type: "text", placeholder: "Enter Course duration" }
-];
 
-
-const Edit = () =>{
-    // const { id } = useParams();
+const Delete = () =>{
+    const { id } = useParams();
     const navigate = useNavigate()
     const { onMutation } = useMutation(editCourse,{
         onSuccess: () =>{},
@@ -29,10 +20,8 @@ const Edit = () =>{
 
     
     const { getter, setter } = useAddCourseState();
-    const onSubmit = (data) => {
-
-        // console.log(getter)
-        onMutation(getter)
+    const onSubmit = () => {
+        onMutation(id)
         navigate((constants.ROUTES.COURSE_LIST)); 
       };
     
@@ -64,8 +53,7 @@ const Edit = () =>{
                     value={getter[item.id]}
                     onChange={setter[item.id]}
                     placeholder={item.placeholder}
-                    id = {item.id}
-
+                    key={item.id}
                 />
             )) }
             <ButtonGroup>
@@ -79,10 +67,5 @@ const Edit = () =>{
         </Form>
     </StyledContainer>
     )
-
-    
-
-    
-
 }
-export default Edit
+export default Delete

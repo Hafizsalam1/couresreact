@@ -5,6 +5,9 @@ import {StyledContainer, StyledTitle} from "./styles";
 import useAddCourseState from "./useAddCourseState";
 import { useLocation, useNavigate } from "react-router-dom"
 import constants from "../../constants";
+import { addCourse } from "../../services/courseService";
+import useMutation from "../../hooks/useMutation";
+
 
 
 
@@ -28,12 +31,19 @@ const AddCourse = ({onNavigate, setCourses}) => {
 
     
     const { getter, setter } = useAddCourseState();
+    const {onMutation, loading} = useMutation(addCourse, {
+        onSuccess: () =>navigate((constants.ROUTES.COURSE_LIST)),
+        onError: () => {}
+    })
+
+    const onSubmit = () =>{
+        onMutation(getter)
+    }
     
     const handleSubmit = (e) => {
         e.preventDefault();
         setCourses((prevState) => {
             const newCourse = { ...getter };
-            console.log(newCourse);
             const newCourses = [...prevState];
             // const payload = {
             //     ...getter,
@@ -61,7 +71,7 @@ const AddCourse = ({onNavigate, setCourses}) => {
                 />
             )) }
             <ButtonGroup>
-                <Button variant="success" onClick={handleSubmit} disabled={getter.isDisable}>
+                <Button variant="success" onClick={onSubmit} disabled={getter.isDisable}>
                     Submit
                 </Button>
                 <Button variant="secondary" onClick={() => onNavigate("/")}>

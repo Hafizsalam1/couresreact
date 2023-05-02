@@ -11,6 +11,7 @@ import NavBar from './pages/NavBar';
 import AddType from './pages/AddType/index';
 import TypeList from './pages/TypeList/index';
 import Edit from './pages/Edit/Edit';
+import TypeItem from './pages/TypeList/TypeItem';
 
 
 const {ROUTES} = constants;
@@ -50,6 +51,7 @@ function App() {
   const [titlea, setTitlea] = React.useState("title")
 
 
+
   return (
     <div className="App">
       <NavBar/>
@@ -60,7 +62,7 @@ function App() {
         <Route element = {<CourseList courses={course}/>} path = {ROUTES.COURSE_LIST}/>
         <Route element = {<AddType setTypes={setType}/>} path = {ROUTES.ADD_TYPE}/>
         <Route element = {<TypeList types={type}/>} path = {ROUTES.TYPE_LIST}/>
-        <Route element = {<Edit title={titlea}/>} path = {ROUTES.EDIT_COURSE}/>
+        <Route element = {<Edit title={setTitlea}/>} path = {ROUTES.EDIT_COURSE}/>
         </Route>
       </Routes>
     </div>

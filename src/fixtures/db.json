@@ -1,0 +1,14 @@
+{
+  "courses": [
+    {
+      "title": "sws",
+      "description": "s",
+      "typeId": "s",
+      "courseFile": {},
+      "level": "s",
+      "duration": "s",
+      "isDisable": false,
+      "id": 1
+    }
+  ]
+}

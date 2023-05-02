@@ -5,6 +5,11 @@ import {StyledListGroup, StyledText} from "./styles";
 import CourseItem from "./CourseItem/index";
 import { useLocation, useNavigate } from "react-router-dom"
 import constants from "../../constants";
+import useQuery from "../../hooks/useQuery";
+import withPagination from "../../hoc/withPagination";
+import useMutation from "../../hooks/useMutation";
+import {deleteCourse, getCourses} from "../../services/courseService";
+
 
 
 // import courseList from "../../fixtures/courseList.json";
@@ -14,8 +19,24 @@ const Empty = () => (
     <StyledText>Data masih Kosong...</StyledText>
 )
 
+
 const List = (props) => {
-    const {data} = props
+    const {data, refetch} = props
+    const {onMutation: onDelete} = useMutation(deleteCourse, {
+        onSuccess: refetch
+    })
+
+    const onEditHandler = (id) => () => {
+
+
+    }
+
+    const onDeleteHandler = (id) => () => {
+        const isOk = window.confirm("Are you sure to delete this course?")
+        console.log(id)
+        if (isOk) onDelete(id)
+    }
+
     return (
         <StyledListGroup>
             {data.map((item, index) => {
@@ -26,7 +47,9 @@ const List = (props) => {
                         typeId={item.typeId}
                         level={item.level}
                         duration={item.duration}
+                        onDelete={onDeleteHandler(item.id)}
                         key={index}
+                        
                     />
                 )
                 })}
@@ -34,7 +57,9 @@ const List = (props) => {
     )
 }
 
-const CourseList = ({courses}) => {
+const CourseList = () => {
+    const {data: courses} = useQuery(getCourses,{})
+
     const navigate = useNavigate()
 
 
@@ -48,4 +73,10 @@ const CourseList = ({courses}) => {
     )
 }
 
-export default CourseList;
+// export default CourseList
+
+export default withPagination(List, {
+    query: getCourses,
+    title: "Course List Page",
+    routeAdd: constants.ROUTES.ADD_COURSE
+})
